@@ -1,9 +1,8 @@
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Machine myMachine = new Machine();
-        myMachine.start();
 
         System.out.println("-----------Get product-----------");
         myMachine.start();
