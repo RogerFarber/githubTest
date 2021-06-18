@@ -1,7 +1,7 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Machine implements Runnable {
+public class Machine {
     static private States currentState = States.INIT;
     static private Events currentEvent = Events.START;
     static private int countTime = 0;
@@ -112,34 +112,7 @@ public class Machine implements Runnable {
         public abstract States getNextState(Events currentEvent);
     }
 
-    @Override
-    public void run() {
-        try {
-            initTimeOut();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void initTimeOut() throws InterruptedException {
-        while (currentState != States.PRODUCT_DISTRIBUTED && currentState != States.INIT) {
-            if (IsTimeOut()) {
-                currentEvent = Events.TIME_OUT;
-                currentState = currentState.getNextState(currentEvent);
-                System.out.println("TimeOut!");
-                System.out.println("cancels the purchase, returns " + countMoney + " nis");
-                System.out.println(currentState.getMessage());
-                countMoney = 0;
-                countTime = 0;
-            }
-            Thread.sleep(1000);
-            ++countTime;
-        }
-    }
-
-    private boolean IsTimeOut() {
-        return (countTime >= timeout);
-    }
 
     //API Methods
     public void start() {
@@ -147,8 +120,7 @@ public class Machine implements Runnable {
         currentState = currentState.getNextState(currentEvent);
         Machine machine_object = new Machine(); /*no need to creat object,
                                                  can you current instance using "this"*/
-        Thread newThread = new Thread(machine_object);
-        newThread.start();
+
     }
 
     public void insertCoin(Coins coin){
