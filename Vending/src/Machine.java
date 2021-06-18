@@ -1,5 +1,4 @@
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class Machine {
     static private States currentState = States.INIT;
